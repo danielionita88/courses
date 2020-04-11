@@ -8,7 +8,8 @@ const MainPage = props => {
 
     const [courses, setCourses] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-
+    const [filter, setFilter]= useState('All')
+    
     useEffect(() => {
         (async function () {
             try {
@@ -20,30 +21,58 @@ const MainPage = props => {
         })();
     }, []);
 
-    const handleInputChange= e =>{
+    const handleInputChange = e => {
         setSearchTerm(e.target.value)
     }
 
+    const handleFilter = e =>{
+        setFilter(e.target.value)
+    }
+
     let renderedCourses
-    if(searchTerm.lengh > 0){
-        renderedCourses = courses
-    }else {
-        renderedCourses=courses.filter( course => course.title.toLowerCase().includes(searchTerm) )
+
+    // if (searchTerm) {
+    //     renderedCourses = courses.filter(course => course.title.toLowerCase().includes(searchTerm))
+    // }
+    // else {
+    //     renderedCourses = courses
+    // }
+
+    const filterCourses = () => {
+        if (filter === "All"){
+            renderedCourses = courses
+        } else if(filter ==='Beginner'){
+            renderedCourses = courses.filter(course => course.level === 'Beginner')
+        } else if(filter === 'Intermediate') {
+          renderedCourses = courses.filter(course =>course.level === 'Intermediate')
+        } else if(filter === 'Advanced'){
+          renderedCourses = courses.filter(course =>course.level === 'Advanced')
+        }
     }
 
     return (
         <div className={classes.Main}>
             <div className={classes.Header}>
                 <h1>Courses</h1>
-                <input 
-                    className={classes.Input} 
-                    type='search' 
-                    placeholder='Search course by title'
-                    onChange={handleInputChange}
-                />
+                <div>
+                    <input
+                        className={classes.Input}
+                        type='search'
+                        placeholder='Search course by title'
+                        onChange={handleInputChange}
+                    />
+                    <br />
+                    <span>Filter by level </span>
+                    <select onChange={handleFilter}>
+                        <option value="All">All</option>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                    </select>
+                </div>
             </div>
             <div className={classes.Grid}>
-                <Courses courses={renderedCourses} />
+                <Courses courses={courses} />
             </div>
         </div>
     );
