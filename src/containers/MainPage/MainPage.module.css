@@ -1,0 +1,37 @@
+.Main {
+    align-items: center;
+    text-align: center;
+}
+
+.Main h1 {
+    padding: 10px;
+}
+
+.Header {
+    width: 100%;
+    position: fixed;
+    background-color: cadetblue;
+}
+
+.Grid {
+    background-color: azure;
+    display: grid;
+    grid-template-columns: 33.3% 33.3% 33.3%;
+    row-gap: 1em;
+    align-items: center;
+    padding-top: 250px;
+    padding-bottom: 50px;
+    width: 70%;
+    margin: auto
+}
+
+
+.Input {
+    padding: 20px;
+    width: 600px;
+    height: 30px;
+    margin-bottom: 50px;
+    border: solid 1px rgb(149, 228, 248);
+    box-shadow: 3px 3px 5px rgb(149, 228, 248);
+    font-size: 15px
+}
