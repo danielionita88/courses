@@ -1,43 +1,34 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios';
-import classes from './MainPage.module.css'
-import Courses from '../../components/Courses/Courses'
-import Header from '../../components/Header/Header'
-
+import React, { useState } from 'react';
+import classes from './MainPage.module.css';
+import Courses from '../../components/Courses/Courses';
+import Header from '../../components/Header/Header';
+import history from '../../history/history';
 
 const MainPage = props => {
-
-    const [courses, setCourses] = useState([]);
+    
     const [searchTerm, setSearchTerm] = useState('');
-    const [filter, setFilter] = useState('All')
-
-    useEffect(() => {
-        (async function () {
-            try {
-                const response = await axios.get("https://quze-intern-test.s3.us-east-2.amazonaws.com/course-data.json");
-                setCourses(response.data)
-            } catch (e) {
-                alert(e)
-            }
-        })();
-    }, []);
+    const [filter, setFilter] = useState('All');
 
     const handleInputChange = e => {
         setSearchTerm(e.target.value)
-    }
+    };
 
     const handleFilter = e => {
         setFilter(e.target.value)
-    }
+    };
 
-    let renderedCourses
+    const handleCourseClick = courseId => {
+        history.push(`course/${courseId}`)
+    };
+
+    let renderedCourses;
 
     if (searchTerm) {
-        renderedCourses = courses.filter(course => course.title.toLowerCase().includes(searchTerm))
+        renderedCourses = props.courses.filter(course => course.title.toLowerCase().includes(searchTerm))
     }
     else {
-        renderedCourses = courses
-    }
+        renderedCourses = props.courses
+    };
 
     const filterCourses = renderedCourses => {
         if (filter === "All") {
@@ -49,7 +40,7 @@ const MainPage = props => {
         } else if (filter === 'Advanced') {
             return renderedCourses.filter(course => course.level === 'Advanced')
         }
-    }
+    };
 
     return (
         <div className={classes.Main}>
@@ -58,7 +49,10 @@ const MainPage = props => {
                 filter={handleFilter}
             />
             <div className={classes.Grid}>
-                <Courses courses={filterCourses(renderedCourses)} />
+                <Courses 
+                    courses={filterCourses(renderedCourses)} 
+                    clicked={handleCourseClick}
+                />
             </div>
         </div>
     );

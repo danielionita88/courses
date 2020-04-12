@@ -2,11 +2,14 @@ import React from 'react';
 import classes from './Courses.module.css';
 import StarRatings from 'react-star-ratings';
 
-
-const Courses = props => {
+const courses = props => {
     
     return props.courses.map( course => (
-        <div key={course.courseId} className={classes.Card}>
+        <div 
+            key={course.courseId} 
+            className={classes.Card}
+            onClick={() => props.clicked(course.courseId)}
+        >
             <img 
                 src={course.imgUrl ? 
                     course.imgUrl : 
@@ -26,4 +29,4 @@ const Courses = props => {
     
 };
 
-export default Courses;
+export default courses;
