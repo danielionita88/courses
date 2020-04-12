@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import classes from './MainPage.module.css'
 import Courses from '../../components/Courses/Courses'
+import Header from '../../components/Header/Header'
 
 
 const MainPage = props => {
 
     const [courses, setCourses] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const [filter, setFilter]= useState('All')
-    
+    const [filter, setFilter] = useState('All')
+
     useEffect(() => {
         (async function () {
             try {
@@ -25,54 +26,39 @@ const MainPage = props => {
         setSearchTerm(e.target.value)
     }
 
-    const handleFilter = e =>{
+    const handleFilter = e => {
         setFilter(e.target.value)
     }
 
     let renderedCourses
 
-    // if (searchTerm) {
-    //     renderedCourses = courses.filter(course => course.title.toLowerCase().includes(searchTerm))
-    // }
-    // else {
-    //     renderedCourses = courses
-    // }
+    if (searchTerm) {
+        renderedCourses = courses.filter(course => course.title.toLowerCase().includes(searchTerm))
+    }
+    else {
+        renderedCourses = courses
+    }
 
-    const filterCourses = () => {
-        if (filter === "All"){
-            renderedCourses = courses
-        } else if(filter ==='Beginner'){
-            renderedCourses = courses.filter(course => course.level === 'Beginner')
-        } else if(filter === 'Intermediate') {
-          renderedCourses = courses.filter(course =>course.level === 'Intermediate')
-        } else if(filter === 'Advanced'){
-          renderedCourses = courses.filter(course =>course.level === 'Advanced')
+    const filterCourses = renderedCourses => {
+        if (filter === "All") {
+            return renderedCourses
+        } else if (filter === 'Beginner') {
+            return renderedCourses.filter(course => course.level === 'Beginner')
+        } else if (filter === 'Intermediate') {
+            return renderedCourses.filter(course => course.level === 'Intermediate')
+        } else if (filter === 'Advanced') {
+            return renderedCourses.filter(course => course.level === 'Advanced')
         }
     }
 
     return (
         <div className={classes.Main}>
-            <div className={classes.Header}>
-                <h1>Courses</h1>
-                <div>
-                    <input
-                        className={classes.Input}
-                        type='search'
-                        placeholder='Search course by title'
-                        onChange={handleInputChange}
-                    />
-                    <br />
-                    <span>Filter by level </span>
-                    <select onChange={handleFilter}>
-                        <option value="All">All</option>
-                        <option value="Beginner">Beginner</option>
-                        <option value="Intermediate">Intermediate</option>
-                        <option value="Advanced">Advanced</option>
-                    </select>
-                </div>
-            </div>
+            <Header
+                change={handleInputChange}
+                filter={handleFilter}
+            />
             <div className={classes.Grid}>
-                <Courses courses={courses} />
+                <Courses courses={filterCourses(renderedCourses)} />
             </div>
         </div>
     );

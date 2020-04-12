@@ -1,0 +1,17 @@
+.Header {
+    width: 100%;
+    position: fixed;
+    background-color: cadetblue;
+    padding-bottom: 30px;
+    z-index: 100;
+}
+
+.Input {
+    padding: 20px;
+    width: 600px;
+    height: 30px;
+    border: solid 1px rgb(149, 228, 248);
+    box-shadow: 3px 3px 5px rgb(149, 228, 248);
+    font-size: 15px;
+    margin-bottom: 10px;
+}
