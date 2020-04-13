@@ -25,8 +25,7 @@ const courses = props => {
                 rating={course.providerRatings ? course.providerRatings : 0}
             />
         </div>
-    ));
-    
+    ));  
 };
 
 export default courses;

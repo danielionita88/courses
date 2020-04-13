@@ -1,12 +1,11 @@
 import React from 'react';
 import StarRatings from 'react-star-ratings';
-import classes from './CourseDetails.module.css'
+import classes from './CourseDetails.module.css';
 
 const CourseDetails = props => {
     
     const id = parseInt(props.match.params.id)
     const currentCourse = props.courses.find(course => course.courseId === id)
-    console.log(currentCourse)
 
     return(
         <div className={classes.Details}>
@@ -28,6 +27,6 @@ const CourseDetails = props => {
             <p>{currentCourse.shortDescription}</p>
         </div>
     );
-}
+};
 
 export default CourseDetails;
