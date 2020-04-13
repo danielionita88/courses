@@ -1,0 +1,14 @@
+.Details {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    background-color: rgba(68, 68, 68, 0.6);
+    color: white;
+    padding: 30px 30px;
+}
+
+.Details img {
+    max-width: 90%;
+    align-items: center;
+    border-radius: 10px;
+}
